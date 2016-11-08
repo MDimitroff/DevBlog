@@ -29,6 +29,12 @@ textarea {
     width: 100%;
 }
 
+img.header-image {
+    height: 150px !Important;
+    margin: 0px auto;
+    padding-top: 20px;
+}
+
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
   /* Hide captions */
