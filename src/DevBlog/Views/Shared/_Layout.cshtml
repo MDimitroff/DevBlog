@@ -30,17 +30,18 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">All Posts</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">Add Post</a></li>
+                    <li><a asp-area="" asp-controller="BlogPost" asp-action="List">All Posts</a></li>
+                    <li><a asp-area="" asp-controller="BlogPost" asp-action="Add">Add Post</a></li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
+
         <hr />
         <footer>
-            <p>&copy; 2016 - DevBlog</p>
+            <p>&copy; 2017 - DevBlog</p>
         </footer>
     </div>
 
