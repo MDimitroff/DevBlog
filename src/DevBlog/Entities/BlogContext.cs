@@ -2,13 +2,16 @@
 
 namespace DevBlog.Entities
 {
-    public class BloggingContext : DbContext
+    public class BlogContext : DbContext
     {
-        public BloggingContext(DbContextOptions<BloggingContext> options)
+        public BlogContext(DbContextOptions<BlogContext> options)
             : base(options)
         { }
 
         public DbSet<Post> Posts { get; set; }
+
         public DbSet<Tag> Tags { get; set; }
+
+        public DbSet<PostTag> PostTags { get; set; }
     }
 }

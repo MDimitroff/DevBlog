@@ -29,7 +29,7 @@ namespace DevBlog
             services.AddMvc();
             
             var connection = @"Server=.\;Database=DevBlog;Trusted_Connection=True;";
-            services.AddDbContext<BloggingContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<BlogContext>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
