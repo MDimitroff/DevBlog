@@ -1,4 +1,6 @@
 ﻿using DevBlog.Entities;
+using DevBlog.Repositories;
+using DevBlog.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -28,8 +30,15 @@ namespace DevBlog
             // Add framework services.
             services.AddMvc();
             
-            var connection = @"Server=.\;Database=DevBlog;Trusted_Connection=True;";
+            var connection = @"Server=.\SQLEXPRESS;Database=DevBlog;Trusted_Connection=True;";
             services.AddDbContext<BlogContext>(options => options.UseSqlServer(connection));
+
+            services.AddTransient<PostRepository>();
+            services.AddTransient<PostTagRepository>();
+            services.AddTransient<TagRepository>();
+
+            services.AddTransient<PostService>();
+            services.AddTransient<TagService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
