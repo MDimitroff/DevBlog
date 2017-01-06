@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace DevsForum.Entities
+namespace DevBlog.Entities
 {
     public class BloggingContext : DbContext
     {
@@ -12,7 +8,7 @@ namespace DevsForum.Entities
             : base(options)
         { }
 
-        public DbSet<Topic> Topics { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<Tag> Tags { get; set; }
     }
 }

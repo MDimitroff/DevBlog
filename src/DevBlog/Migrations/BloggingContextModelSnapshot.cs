@@ -1,17 +1,14 @@
-﻿using System;
+﻿using DevBlog.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
-using DevsForum.Entities;
 
-namespace DevsForum.Migrations
+namespace DevBlog.Migrations
 {
     [DbContext(typeof(BloggingContext))]
-    [Migration("20161108171956_InitialDatabaseCreation")]
-    partial class InitialDatabaseCreation
+    partial class BloggingContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")

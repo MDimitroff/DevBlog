@@ -1,4 +1,4 @@
-﻿using DevsForum.Entities;
+﻿using DevBlog.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 
-namespace DevsForum
+namespace DevBlog
 {
     public class Startup
     {
@@ -28,7 +28,7 @@ namespace DevsForum
             // Add framework services.
             services.AddMvc();
             
-            var connection = @"Server=.\;Database=DevsForum;Trusted_Connection=True;";
+            var connection = @"Server=.\;Database=DevBlog;Trusted_Connection=True;";
             services.AddDbContext<BloggingContext>(options => options.UseSqlServer(connection));
         }
 

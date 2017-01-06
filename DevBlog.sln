@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		global.json = global.json
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "DevsForum", "src\DevsForum\DevsForum.xproj", "{DC2ED866-D788-45AB-84A0-47F82F4EFBC6}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "DevBlog", "src\DevBlog\DevBlog.xproj", "{DC2ED866-D788-45AB-84A0-47F82F4EFBC6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
