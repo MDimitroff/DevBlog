@@ -22,12 +22,7 @@ namespace DevBlog.Controllers
             }
             else
             {
-                model = new PostModel
-                {
-                    Title = null,
-                    Content = null,
-                    TagNames = null
-                };
+                model = new PostModel();
             }
 
             return View(model);
@@ -53,6 +48,13 @@ namespace DevBlog.Controllers
             var post = _postService.Get(id);
 
             return View(post);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            _postService.Delete(id);
+
+            return Redirect("~/Blog/List");
         }
     }
 }

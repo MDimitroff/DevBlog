@@ -52,6 +52,12 @@ img.header-image {
     padding: 3px;
 }
 
+.icon {
+    float: right;
+    margin-left: 20px;
+    width: 20px;
+    height: 20px;
+}
 
 
 /* Hide/rearrange for smaller screens */
