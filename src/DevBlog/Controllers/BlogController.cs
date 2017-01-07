@@ -13,15 +13,30 @@ namespace DevBlog.Controllers
             _postService = postService;
         }
 
-        public IActionResult Post()
+        public IActionResult Post(int? id)
         {
-            return View();
+            PostModel model = null;
+            if (id.HasValue && id.Value > 0)
+            {
+                model = _postService.Get(id.Value);
+            }
+            else
+            {
+                model = new PostModel
+                {
+                    Title = null,
+                    Content = null,
+                    TagNames = null
+                };
+            }
+
+            return View(model);
         }
 
         [HttpPost]
         public IActionResult Post(PostModel model)
         {
-            _postService.Save(model);
+            _postService.SaveOrUpdate(model);
 
             return Redirect(nameof(List));
         }
@@ -31,6 +46,13 @@ namespace DevBlog.Controllers
             var posts = _postService.Get();
 
             return View(posts);
+        }
+
+        public IActionResult View(int id)
+        {
+            var post = _postService.Get(id);
+
+            return View(post);
         }
     }
 }
