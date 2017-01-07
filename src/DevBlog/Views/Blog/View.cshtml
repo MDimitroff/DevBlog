@@ -1,0 +1,12 @@
+﻿@model DevBlog.Models.PostModel
+
+<h1>@Model.Title</h1>
+<div class="margin-top-20">
+    @Html.Raw(Model.Content)
+</div>
+<div class="margin-top-20">
+    @foreach (var tag in Model.TagNames)
+    {
+        <span class="tag">@tag</span>
+    }
+</div>

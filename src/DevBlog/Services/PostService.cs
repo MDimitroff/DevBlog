@@ -21,18 +21,16 @@ namespace DevBlog.Services
             _postTagRepository = postTagRepository;
         }
 
-        public void Save(PostModel model)
+        public void SaveOrUpdate(PostModel model)
         {
-            var post = new Post
+            if (model.Id > 0)
             {
-                Title = model.Title,
-                Content = model.Content.Replace("\n","<br />")
-            };
-
-            _postRepository.Create(post);
-
-            var tags = model.Tags.Split(',');
-            AddTagsToPost(post.Id, tags);
+                Edit(model);
+            }
+            else
+            {
+                Save(model);
+            }
         }
 
         public List<PostModel> Get()
@@ -57,6 +55,89 @@ namespace DevBlog.Services
             });
 
             return result;
+        }
+
+        public PostModel Get(int id)
+        {
+            PostModel result = null;
+            var post = _postRepository.Get()
+                .FirstOrDefault(p => p.Id == id);
+
+            if (post != null)
+            {
+                result = new PostModel
+                {
+                    Id = post.Id,
+                    Title = post.Title,
+                    Content = post.Content,
+                    TagNames = (post.Tags.Any()) ? post.Tags.Select(t => t.Tag.Name).ToList() : null
+                };
+            }
+
+            return result;
+        }
+
+        public void Delete(int postId)
+        {
+            var tags = _postTagRepository.GetBy(postId);
+            var post = _postRepository.Get()
+                .FirstOrDefault(p => p.Id == postId);
+
+            if (post == null) return;
+
+            foreach (var tag in tags)
+            {
+                _postTagRepository.Delete(tag);
+            }
+
+            _postRepository.Delete(post);
+        }
+
+        private void Save(PostModel model)
+        {
+            var post = new Post
+            {
+                Title = model.Title,
+                Content = model.Content.Replace("\n", "<br />")
+            };
+
+            _postRepository.Create(post);
+
+            var tags = model.Tags.Split(',');
+            AddTagsToPost(post.Id, tags);
+        }
+
+        private void Edit(PostModel model)
+        {
+            var post = _postRepository.Get()
+                .FirstOrDefault(p => p.Id == model.Id);
+
+            if (post == null) return;
+
+            post.Title = model.Title;
+            post.Content = model.Content;
+
+            _postRepository.SaveChanges();
+
+            var newTags = model.Tags.Split(',');
+            var oldTags = _postTagRepository.GetBy(post.Id)
+                .Select(t => t.Tag.Name);
+
+            var tagsToDelete = oldTags.Where(t => !newTags.Contains(t)).ToArray();
+            DeleteTagsFromPost(post.Id, tagsToDelete);
+
+            var tagsToAdd = newTags.Where(t => !oldTags.Contains(t)).ToArray();
+            AddTagsToPost(post.Id, tagsToAdd);
+        }
+
+        private void DeleteTagsFromPost(int postId, string[] tagsToDelete)
+        {
+            var entitesToDelete = _postTagRepository.GetBy(postId, tagsToDelete);
+
+            foreach (var tag in entitesToDelete)
+            {
+                _postTagRepository.Delete(tag);
+            }
         }
 
         private void AddTagsToPost(int postId, string[] tags)

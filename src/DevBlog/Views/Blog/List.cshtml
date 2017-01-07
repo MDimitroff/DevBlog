@@ -6,9 +6,13 @@
 
 @foreach (var post in Model)
 {
-    <div class="post" data-post-id="@post.Id">
-        <h3>@post.Title</h3>
-        <div>
+    <div class="margin-top-20" data-post-id="@post.Id">
+        <h3>
+            <a href="~/Blog/View/@post.Id" class="post-title">@post.Title</a>
+            <a href="~/Blog/Delete/@post.Id"><img src="~/images/delete.png" class="icon" /></a>
+            <a href="~/Blog/Post/@post.Id"><img src="~/images/pencil.png" class="icon" /></a>
+        </h3>
+        <div class="">
             @post.Content
         </div>
         <div class="margin-top-10">
