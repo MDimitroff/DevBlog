@@ -4,31 +4,33 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DevBlog.Controllers
 {
-    public class BlogPostController : Controller
+    public class BlogController : Controller
     {
         private readonly PostService _postService;
 
-        public BlogPostController(PostService postService)
+        public BlogController(PostService postService)
         {
             _postService = postService;
         }
 
-        public IActionResult Add()
+        public IActionResult Post()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Save(PostModel model)
+        public IActionResult Post(PostModel model)
         {
             _postService.Save(model);
 
-            return View(nameof(List));
+            return Redirect(nameof(List));
         }
 
         public IActionResult List()
         {
-            return View();
+            var posts = _postService.Get();
+
+            return View(posts);
         }
     }
 }

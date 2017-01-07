@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace DevBlog.Models
 {
@@ -11,5 +8,6 @@ namespace DevBlog.Models
         public string Title { get; set; }
         public string Content { get; set; }
         public string Tags { get; set; }
+        public List<string> TagNames { get; set; }
     }
 }

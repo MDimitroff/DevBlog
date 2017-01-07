@@ -8,6 +8,6 @@ namespace DevBlog.Entities
         public string Title { get; set; }
         public string Content { get; set; }
 
-        public virtual ICollection<PostTag> Tags { get; set; }
+        public List<PostTag> Tags { get; set; }
     }
 }
