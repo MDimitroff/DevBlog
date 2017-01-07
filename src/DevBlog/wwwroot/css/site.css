@@ -39,6 +39,19 @@ img.header-image {
     margin-top: 25px;
 }
 
+.post {
+    margin-top: 20px;
+}
+
+.tag {
+    border: 1px solid black;
+    padding: 3px;
+}
+
+.margin-top-10 {
+    margin-top: 10px;
+}
+
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
   /* Hide captions */

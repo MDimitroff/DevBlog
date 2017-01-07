@@ -1,4 +1,6 @@
-﻿using DevBlog.Entities;
+﻿using System.Collections.Generic;
+using System.Linq;
+using DevBlog.Entities;
 using DevBlog.Models;
 using DevBlog.Repositories;
 
@@ -24,13 +26,37 @@ namespace DevBlog.Services
             var post = new Post
             {
                 Title = model.Title,
-                Content = model.Content
+                Content = model.Content.Replace("\n","<br />")
             };
 
             _postRepository.Create(post);
 
             var tags = model.Tags.Split(',');
             AddTagsToPost(post.Id, tags);
+        }
+
+        public List<PostModel> Get()
+        {
+            var result = _postRepository.Get()
+                .Select(p => new PostModel
+                {
+                    Id = p.Id,
+                    Title = p.Title,
+                    Content = p.Content.Replace("<br />", string.Empty),
+                    TagNames = (p.Tags.Any()) ? p.Tags.Select(t => t.Tag.Name).ToList() : null
+                })
+                .OrderByDescending(p => p.Id)
+                .ToList();
+
+            result.ForEach((post) => 
+            {
+                if(post.Content.Length > 400)
+                {
+                    post.Content = post.Content.Substring(0, 400) + "...";
+                }
+            });
+
+            return result;
         }
 
         private void AddTagsToPost(int postId, string[] tags)

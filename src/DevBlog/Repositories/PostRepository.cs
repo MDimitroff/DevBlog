@@ -1,5 +1,8 @@
-﻿using DevBlog.Entities;
+﻿using System.Collections.Generic;
+using System.Linq;
+using DevBlog.Entities;
 using DevBlog.Repositories.Abstract;
+using Microsoft.EntityFrameworkCore;
 
 namespace DevBlog.Repositories
 {
@@ -9,6 +12,12 @@ namespace DevBlog.Repositories
             : base(context)
         { }
 
-
+        public List<Post> Get()
+        {
+            return Context.Posts
+                .Include(post => post.Tags)
+                    .ThenInclude(tag => tag.Tag)
+                .ToList();
+        } 
     }
 }

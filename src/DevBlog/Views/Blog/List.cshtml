@@ -1,0 +1,28 @@
+﻿@model List<DevBlog.Models.PostModel>
+@{ 
+    int length = Model.Count();
+    int index = 1;
+}
+
+@foreach (var post in Model)
+{
+    <div class="post" data-post-id="@post.Id">
+        <h3>@post.Title</h3>
+        <div>
+            @post.Content
+        </div>
+        <div class="margin-top-10">
+            @foreach (var tag in post.TagNames)
+            {
+                <span class="tag">@tag</span>
+            }
+        </div>
+    </div>
+    @if (index != length)
+    {
+        <hr />
+    }
+
+    index++;
+}
+

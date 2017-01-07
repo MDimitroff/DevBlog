@@ -9,9 +9,9 @@ namespace DevBlog.Entities
         public int TagId { get; set; }
 
         [ForeignKey(nameof(PostId))]
-        public virtual Post Post { get; set; }
+        public Post Post { get; set; }
 
         [ForeignKey(nameof(TagId))]
-        public virtual Tag Tag { get; set; }
+        public Tag Tag { get; set; }
     }
 }
