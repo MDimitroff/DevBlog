@@ -1,0 +1,45 @@
+﻿@model List<DevBlog.Models.PostModel>
+@{
+    int length = Model.Count();
+    int index = 1;
+}
+
+
+<div class="row home-page-container">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 align-center">
+        <img src="~/images/elasticsearch-logo.png" alt="elasticsearch" class="img-responsive header-image" />
+        <form method="post" action="~/Blog/Index" class="margin-top-25">
+            <div class="form-group form-group-lg">
+                <input id="terms" name="terms" class="input-lg full-width search-field" placeholder="What are you looking for?" />
+            </div>
+        </form>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        @foreach (var post in Model)
+        {
+            <div class="margin-top-20" data-post-id="@post.Id">
+                <h3>
+                    <a href="~/Blog/View/@post.Id" class="post-title">@post.Title</a>
+                    <a href="~/Blog/Delete/@post.Id"><img src="~/images/delete.png" class="icon" /></a>
+                    <a href="~/Blog/Post/@post.Id"><img src="~/images/pencil.png" class="icon" /></a>
+                </h3>
+                <div class="">
+                    @post.Content
+                </div>
+                <div class="margin-top-10">
+                    @foreach (var tag in post.TagNames)
+                    {
+                        <span class="tag">@tag</span>
+                    }
+                </div>
+            </div>
+            @if (index != length)
+            {
+                <hr />
+            }
+
+            index++;
+        }
+    </div>
+</div>

@@ -1,16 +1,35 @@
 ﻿using DevBlog.Models;
 using DevBlog.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace DevBlog.Controllers
 {
     public class BlogController : Controller
     {
         private readonly PostService _postService;
+        private readonly ElasticService _elasticService;
 
-        public BlogController(PostService postService)
+        public BlogController(PostService postService,
+            ElasticService elasticService)
         {
             _postService = postService;
+            _elasticService = elasticService;
+        }
+
+        public IActionResult Index()
+        {
+            var model = new List<PostModel>();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Index(string terms)
+        {
+            var model = _elasticService.Search(terms);
+
+            return View(model);
         }
 
         public IActionResult Post(int? id)
@@ -55,6 +74,11 @@ namespace DevBlog.Controllers
             _postService.Delete(id);
 
             return Redirect("~/Blog/List");
+        }
+
+        public IActionResult Error()
+        {
+            return View();
         }
     }
 }
