@@ -11,14 +11,17 @@ namespace DevBlog.Services
         private readonly PostRepository _postRepository;
         private readonly PostTagRepository _postTagRepository;
         private readonly TagService _tagService;
+        private readonly ElasticService _elasticService;
 
         public PostService(PostRepository postRepository, 
             TagService tagService,
-            PostTagRepository postTagRepository)
+            PostTagRepository postTagRepository,
+            ElasticService elasticService)
         {
             _postRepository = postRepository;
             _tagService = tagService;
             _postTagRepository = postTagRepository;
+            _elasticService = elasticService;
         }
 
         public void SaveOrUpdate(PostModel model)
@@ -31,6 +34,8 @@ namespace DevBlog.Services
             {
                 Save(model);
             }
+
+            _elasticService.IndexData(model);
         }
 
         public List<PostModel> Get()
@@ -90,6 +95,13 @@ namespace DevBlog.Services
                 _postTagRepository.Delete(tag);
             }
 
+            var postModel = new PostModel
+            {
+                Id = post.Id,
+                Deleted = true
+            };
+
+            _elasticService.IndexData(postModel); // Delete the document in ES
             _postRepository.Delete(post);
         }
 
@@ -102,6 +114,7 @@ namespace DevBlog.Services
             };
 
             _postRepository.Create(post);
+            model.Id = post.Id;
 
             var tags = model.Tags.Split(',');
             AddTagsToPost(post.Id, tags);

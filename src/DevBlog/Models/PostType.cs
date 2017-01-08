@@ -1,15 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using Nest;
+using System.Collections.Generic;
 
 namespace DevBlog.Models
 {
-    public class PostModel
+    [ElasticsearchType(Name = "post")]
+    public class PostType
     {
+        [Number]
         public int Id { get; set; }
-        public string Title { get; set; }
-        public string Content { get; set; }
-        public string Tags { get; set; }
-        public List<string> TagNames { get; set; }
 
+        [String]
+        public string Title { get; set; }
+
+        [String]
+        public string Content { get; set; }
+
+        [String]
+        public string Tags { get; set; }
+
+        [Boolean(Store = false)]
         public bool Deleted { get; set; }
     }
 }

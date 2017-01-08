@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using DevBlog.Services.Elasticsearch;
 
 namespace DevBlog
 {
@@ -39,6 +40,10 @@ namespace DevBlog
 
             services.AddTransient<PostService>();
             services.AddTransient<TagService>();
+            services.AddTransient<ElasticProvider>();
+            services.AddTransient<ElasticService>();
+
+            ElasticProvider.Initialize();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,7 +59,7 @@ namespace DevBlog
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Blog/Error");
             }
 
             app.UseStaticFiles();
@@ -63,7 +68,7 @@ namespace DevBlog
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Blog}/{action=Index}/{id?}");
             });
         }
     }

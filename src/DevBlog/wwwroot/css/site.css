@@ -30,7 +30,7 @@ textarea {
 }
 
 img.header-image {
-    height: 150px !Important;
+    height: 130px !Important;
     margin: 0px auto;
     padding-top: 20px;
 }
@@ -59,6 +59,21 @@ img.header-image {
     height: 20px;
 }
 
+.full-width {
+    width: 100%;
+}
+
+.search-field {
+    height: 55px;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.home-page-container {
+    min-height: 300px;
+}
 
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
