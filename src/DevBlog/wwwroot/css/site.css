@@ -81,6 +81,14 @@ img.header-image {
     margin-top: 50px;
 }
 
+.blog-post .icon {
+    display: none;
+}
+
+.blog-post:hover .icon {
+    display: inline-block;
+}
+
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
   /* Hide captions */
