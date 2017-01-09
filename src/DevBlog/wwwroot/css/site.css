@@ -61,6 +61,10 @@ img.header-image {
     height: 20px;
 }
 
+.delete-icon {
+    cursor: pointer; 
+}
+
 .full-width {
     width: 100%;
 }

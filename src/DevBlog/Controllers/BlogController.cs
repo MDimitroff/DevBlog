@@ -82,9 +82,9 @@ namespace DevBlog.Controllers
             return View(post);
         }
 
-        public IActionResult Delete(int id)
+        public IActionResult Delete(int postId)
         {
-            _postService.Delete(id);
+            _postService.Delete(postId);
 
             return Redirect("~/Blog/List");
         }
