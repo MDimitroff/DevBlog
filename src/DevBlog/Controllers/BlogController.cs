@@ -50,6 +50,19 @@ namespace DevBlog.Controllers
         [HttpPost]
         public IActionResult Post(PostModel model)
         {
+            if (!TryValidateModel(model))
+            {
+                var viewModel = new PostModel
+                {
+                    Id = model.Id,
+                    Title = model.Title,
+                    Content = model.Content,
+                    Tags = model.Tags
+                };
+
+                return View(viewModel);
+            }
+
             _postService.SaveOrUpdate(model);
 
             return Redirect(nameof(List));

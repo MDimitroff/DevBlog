@@ -49,7 +49,9 @@ img.header-image {
 
 .tag {
     border: 1px solid black;
-    padding: 3px;
+    color: white;
+    background-color: #2377C1;
+    padding: 5px;
 }
 
 .icon {
@@ -73,6 +75,10 @@ img.header-image {
 
 .home-page-container {
     min-height: 300px;
+}
+
+.margin-top-50 {
+    margin-top: 50px;
 }
 
 /* Hide/rearrange for smaller screens */

@@ -4,6 +4,8 @@
     int index = 1;
 }
 
+<div class="margin-top-50"></div>
+
 @foreach (var post in Model)
 {
     <div class="margin-top-20" data-post-id="@post.Id">
@@ -28,5 +30,12 @@
     }
 
     index++;
+}
+
+@if (length == 0)
+{
+    <div class="margin-top-20 text-center">
+        <h3>There are no posts yet!</h3>
+    </div>
 }
 
