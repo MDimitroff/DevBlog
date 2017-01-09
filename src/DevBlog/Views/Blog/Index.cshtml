@@ -2,6 +2,7 @@
 @{
     int length = Model.Count();
     int index = 1;
+    bool isSearchExecuted = Context.Request.Path != "/";
 }
 
 
@@ -15,10 +16,10 @@
         </form>
     </div>
 
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-top-20">
         @foreach (var post in Model)
         {
-            <div class="margin-top-20" data-post-id="@post.Id">
+            <div class="blog-post margin-top-20" data-post-id="@post.Id">
                 <h3>
                     <a href="~/Blog/View/@post.Id" class="post-title">@post.Title</a>
                     <a href="~/Blog/Delete/@post.Id"><img src="~/images/delete.png" class="icon" /></a>
@@ -42,4 +43,17 @@
             index++;
         }
     </div>
+
+    @if (isSearchExecuted && length == 0)
+    {
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-top-20 text-center">
+            <h3>No results found by this search creteria</h3>
+        </div>
+    }
+    else if (length == 0)
+    {
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-top-20 text-center">
+            <h3>Instead of exploring the whole content, try to search by keywords to find what you are looking for...</h3>
+        </div>
+    }
 </div>
