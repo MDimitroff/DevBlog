@@ -3,6 +3,7 @@ using System.Linq;
 using DevBlog.Entities;
 using DevBlog.Models;
 using DevBlog.Repositories;
+using System;
 
 namespace DevBlog.Services
 {
@@ -110,7 +111,7 @@ namespace DevBlog.Services
             var post = new Post
             {
                 Title = model.Title,
-                Content = model.Content.Replace("\n", "<br />")
+                Content = model.Content.Replace(Environment.NewLine, "<br />")
             };
 
             _postRepository.Create(post);
