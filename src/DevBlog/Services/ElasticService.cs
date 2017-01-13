@@ -2,6 +2,7 @@
 using DevBlog.Services.Elasticsearch;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace DevBlog.Services
 {
@@ -32,6 +33,8 @@ namespace DevBlog.Services
         {
             var splittedTerms = terms.Split(' ');
             var response = _elastic.Search(splittedTerms);
+
+            string dslQuery = Encoding.UTF8.GetString(response.ApiCall.RequestBodyInBytes);
 
             var result = response.Hits
                 .Select(p => new PostModel

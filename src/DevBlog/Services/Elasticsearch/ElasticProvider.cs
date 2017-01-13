@@ -87,9 +87,9 @@ namespace DevBlog.Services.Elasticsearch
                     .Query(term)
                     .Type(TextQueryType.MostFields)
                     .Fields(f => f
-                        .Field(ff => ff.Title)
-                        .Field(ff => ff.Content)
-                        .Field(ff => ff.Tags)));
+                        .Field(ff => ff.Title, boost: 8)
+                        .Field(ff => ff.Content, boost: 1)
+                        .Field(ff => ff.Tags, boost: 2)));
             }
 
             return query;
