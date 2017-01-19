@@ -51,7 +51,7 @@ namespace DevBlog.Services.Elasticsearch
             var result = _elastic.Search<PostType>(s => s
                 .Index(_indexName)
                 .Type<PostType>()
-                .Query(q => MakeQuery(terms)));
+                .Query(q => BuildQuery(terms)));
 
             return result;
         }
@@ -64,7 +64,7 @@ namespace DevBlog.Services.Elasticsearch
             return new Nest.ElasticClient(settings);
         }
 
-        private QueryContainer MakeQuery(string[] terms)
+        private QueryContainer BuildQuery(string[] terms)
         {
             QueryContainer query = null;
 
