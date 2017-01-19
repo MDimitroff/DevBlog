@@ -17,7 +17,7 @@ namespace DevBlog.Services.Elasticsearch
             _elastic.CreateIndex(_indexName, i => i
                 .Settings(s => s
                     .Setting("number_of_shards", 1)
-                    .Setting("number_of_replicas", 1)));
+                    .Setting("number_of_replicas", 0)));
 
             // Declaration of index's mappings
             _elastic.Map<PostType>(x => x
