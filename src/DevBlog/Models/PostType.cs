@@ -1,21 +1,20 @@
 ﻿using Nest;
-using System.Collections.Generic;
 
 namespace DevBlog.Models
 {
     [ElasticsearchType(Name = "post")]
     public class PostType
     {
-        [Number]
+        [Number(NumberType.Integer)] 
         public int Id { get; set; }
 
-        [String]
+        [Text]
         public string Title { get; set; }
 
-        [String]
+        [Text]
         public string Content { get; set; }
 
-        [String]
+        [Text]
         public string Tags { get; set; }
 
         [Boolean(Store = false)]

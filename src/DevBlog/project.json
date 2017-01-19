@@ -24,7 +24,7 @@
     "Microsoft.EntityFrameworkCore.SqlServer": "1.0.1",
     "Microsoft.EntityFrameworkCore.Tools": "1.0.0-preview3-final",
     "Microsoft.EntityFrameworkCore.Design": "1.0.1",
-    "NEST": "2.4.1"
+    "NEST": "5.0.1"
   },
 
     "tools": {
