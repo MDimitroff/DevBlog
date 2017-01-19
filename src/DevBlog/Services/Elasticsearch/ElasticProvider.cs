@@ -17,20 +17,7 @@ namespace DevBlog.Services.Elasticsearch
             _elastic.CreateIndex(_indexName, i => i
                 .Settings(s => s
                     .Setting("number_of_shards", 1)
-                    .Setting("number_of_replicas", 1)
-                    .Analysis(a => a
-                        .TokenFilters(tf => tf
-                            .EdgeNGram("edge_ngrams", e => e
-                                .MinGram(1)
-                                .MaxGram(50)
-                                .Side(EdgeNGramSide.Front)))
-                            .Analyzers(analyzer => analyzer
-                                .Custom("partial_text", ca => ca
-                                    .Filters(new string[] { "lowercase", "edge_ngrams" })
-                                    .Tokenizer("standard"))
-                                .Custom("full_text", ca => ca
-                                    .Filters(new string[] { "standard", "lowercase" })
-                                    .Tokenizer("standard"))))));
+                    .Setting("number_of_replicas", 1)));
 
             // Declaration of index's mappings
             _elastic.Map<PostType>(x => x
