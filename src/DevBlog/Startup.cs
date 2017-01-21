@@ -40,10 +40,10 @@ namespace DevBlog
 
             services.AddTransient<PostService>();
             services.AddTransient<TagService>();
-            services.AddTransient<ElasticProvider>();
+            services.AddTransient<ElasticClient>();
             services.AddTransient<ElasticService>();
 
-            ElasticProvider.Initialize();
+            ElasticClient.Initialize();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
