@@ -13,23 +13,26 @@ namespace DevBlog.Services.Elasticsearch
         {
             _elastic = GetClient();
 
-            // Create index and define the custom filters and analyzers
+            // Creating the index
             _elastic.CreateIndex(_indexName, i => i
                 .Settings(s => s
                     .Setting("number_of_shards", 1)
                     .Setting("number_of_replicas", 0)));
 
-            // Declaration of index's mappings
+            // Creating the types
             _elastic.Map<PostType>(x => x
                 .Index(_indexName)
                 .AutoMap());
         }
 
-        /// <summary>
-        /// Inserts or updates the entity in elastic search.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="entity">The entity.</param>
+        private static IElasticClient GetClient()
+        {
+            var urlString = new Uri("http://localhost:9200");
+            var settings = new ConnectionSettings(urlString).DisableDirectStreaming();
+
+            return new Nest.ElasticClient(settings);
+        }
+
         public void InsertUpdate(PostType document)
         {
             if(document.Deleted)
@@ -54,14 +57,6 @@ namespace DevBlog.Services.Elasticsearch
                 .Query(q => BuildQuery(terms)));
 
             return result;
-        }
-
-        private static IElasticClient GetClient()
-        {
-            var urlString = new Uri("http://localhost:9200");
-            var settings = new ConnectionSettings(urlString).DisableDirectStreaming();
-
-            return new Nest.ElasticClient(settings);
         }
 
         private QueryContainer BuildQuery(string[] terms)

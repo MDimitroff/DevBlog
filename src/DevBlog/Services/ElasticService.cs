@@ -8,9 +8,9 @@ namespace DevBlog.Services
 {
     public class ElasticService
     {
-        private readonly ElasticProvider _elastic;
+        private readonly ElasticClient _elastic;
 
-        public ElasticService(ElasticProvider elastic)
+        public ElasticService(ElasticClient elastic)
         {
             _elastic = elastic;
         }
