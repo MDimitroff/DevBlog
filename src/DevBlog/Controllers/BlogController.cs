@@ -28,6 +28,7 @@ namespace DevBlog.Controllers
         public IActionResult Index(string terms)
         {
             var model = _elasticService.Search(terms);
+            ViewBag.Terms = terms;
 
             return View(model);
         }

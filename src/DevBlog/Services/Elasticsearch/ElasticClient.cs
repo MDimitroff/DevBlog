@@ -4,7 +4,7 @@ using System;
 
 namespace DevBlog.Services.Elasticsearch
 {
-    public class ElasticProvider
+    public class ElasticClient
     {
         private const string _indexName = "blog";
         public static IElasticClient _elastic { get; set; }
@@ -69,9 +69,9 @@ namespace DevBlog.Services.Elasticsearch
                     .Query(term)
                     .Type(TextQueryType.MostFields)
                     .Fields(f => f
-                        .Field(ff => ff.Title, boost: 8)
-                        .Field(ff => ff.Content, boost: 1)
-                        .Field(ff => ff.Tags, boost: 2)));
+                        .Field(ff => ff.Title, boost: 3)
+                        .Field(ff => ff.Tags, boost: 2)
+                        .Field(ff => ff.Content, boost: 1)));
             }
 
             return query;
