@@ -12,7 +12,7 @@ namespace DevBlog.Models
         [Text]
         public string Title { get; set; }
 
-        [Text]
+        [Text(Analyzer = "Bulgarian")]
         public string Content { get; set; }
 
         [Keyword]

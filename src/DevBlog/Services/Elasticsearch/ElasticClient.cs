@@ -17,7 +17,9 @@ namespace DevBlog.Services.Elasticsearch
             _elastic.CreateIndex(_indexName, i => i
                 .Settings(s => s
                     .Setting("number_of_shards", 1)
-                    .Setting("number_of_replicas", 0)));
+                    .Setting("number_of_replicas", 0)
+                    .Analysis(a => 
+                        a.Analyzers(x => x.Language("Bulgarian", l => l.Language(Language.Bulgarian))))));
 
             // Creating the types
             _elastic.Map<PostType>(x => x
