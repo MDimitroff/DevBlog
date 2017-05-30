@@ -18,9 +18,12 @@
             @post.Content
         </div>
         <div class="margin-top-10">
-            @foreach (var tag in post.TagNames)
+            @if (post.TagNames != null)
             {
-                <span class="tag">@tag</span>
+                foreach (var tag in post.TagNames)
+                {
+                    <span class="tag">@tag</span>
+                }
             }
         </div>
     </div>

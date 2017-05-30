@@ -33,23 +33,19 @@ namespace DevBlog.Services.Elasticsearch
             return new Nest.ElasticClient(settings);
         }
 
-        public void InsertUpdate(PostType document)
+        public void Delete(int id)
         {
-            if(document.Deleted)
-            {
-                _elastic.Delete<PostType>(document.Id.ToString(), i => i
-                     .Index(_indexName));
-            }
-            else
-            {
-                _elastic.Index(document, i => i
-                    .Id(document.Id.ToString())
-                    .Index(_indexName)
-                    .Type<PostType>());
-            }
+            _elastic.Delete<PostType>(id, i => i.Index(_indexName));
         }
 
-        public ISearchResponse<PostType> Search(string[] terms)
+        public void Index(PostType document)
+        {
+            _elastic.Index(document, i => i.Id(document.Id.ToString())
+                .Index(_indexName)
+                .Type<PostType>());
+        }
+
+        public ISearchResponse<PostType> Search(string terms)
         {
             var result = _elastic.Search<PostType>(s => s
                 .Index(_indexName)
@@ -59,20 +55,15 @@ namespace DevBlog.Services.Elasticsearch
             return result;
         }
 
-        private QueryContainer BuildQuery(string[] terms)
+        private QueryContainer BuildQuery(string terms)
         {
-            QueryContainer query = null;
-
-            foreach (var term in terms)
-            {
-                query |= Query<PostType>.MultiMatch(mm => mm
-                    .Query(term)
+            QueryContainer query = Query<PostType>.MultiMatch(mm => mm
+                    .Query(terms)
                     .Type(TextQueryType.MostFields)
                     .Fields(f => f
                         .Field(ff => ff.Title, boost: 3)
                         .Field(ff => ff.Tags, boost: 2)
-                        .Field(ff => ff.Content, boost: 1)));
-            }
+                        .Field(ff => ff.Content, boost: 1))); 
 
             return query;
         }

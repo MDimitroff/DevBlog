@@ -1,4 +1,5 @@
-﻿using Nest;
+﻿using System.Collections.Generic;
+using Nest;
 
 namespace DevBlog.Models
 {
@@ -14,8 +15,8 @@ namespace DevBlog.Models
         [Text]
         public string Content { get; set; }
 
-        [Text]
-        public string Tags { get; set; }
+        [Keyword]
+        public List<string> Tags { get; set; }
 
         [Boolean(Store = false)]
         public bool Deleted { get; set; }

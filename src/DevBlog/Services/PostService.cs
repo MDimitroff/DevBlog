@@ -36,7 +36,7 @@ namespace DevBlog.Services
                 Save(model);
             }
 
-            _elasticService.IndexData(model);
+            _elasticService.Index(model);
         }
 
         public List<PostModel> Get()
@@ -96,13 +96,7 @@ namespace DevBlog.Services
                 _postTagRepository.Delete(tag);
             }
 
-            var postModel = new PostModel
-            {
-                Id = post.Id,
-                Deleted = true
-            };
-
-            _elasticService.IndexData(postModel); // Delete the document in ES
+            _elasticService.Delete(post.Id); 
             _postRepository.Delete(post);
         }
 

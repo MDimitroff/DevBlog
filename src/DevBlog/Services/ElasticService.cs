@@ -15,24 +15,43 @@ namespace DevBlog.Services
             _elastic = elastic;
         }
 
-        public void IndexData(PostModel postModel)
+        public void Index(PostModel postModel)
         {
+            var splittedTags = postModel.Tags
+                .ToLower()
+                .Split(',');
+
+            var tags = new List<string>();
+            foreach (var tag in splittedTags)
+            {
+                tags.Add(tag.Trim());
+            }
+            
             var post = new PostType
             {
                 Id = postModel.Id,
                 Title = postModel.Title,
                 Content = postModel.Content,
-                Tags = postModel.Tags,
+                Tags = tags,
                 Deleted = postModel.Deleted
             };
 
-            _elastic.InsertUpdate(post);
+            _elastic.Index(post);
+        }
+
+        public void Delete(int id)
+        {
+            _elastic.Delete(id);
         }
 
         public List<PostModel> Search(string terms)
         {
-            var splittedTerms = terms.Split(' ');
-            var response = _elastic.Search(splittedTerms);
+            if (string.IsNullOrEmpty(terms))
+            {
+                return new List<PostModel>();
+            }
+
+            var response = _elastic.Search(terms);
 
             string dslQuery = Encoding.UTF8.GetString(response.ApiCall.RequestBodyInBytes);
 
@@ -42,7 +61,7 @@ namespace DevBlog.Services
                     Id = p.Source.Id,
                     Title = p.Source.Title,
                     Content = p.Source.Content,
-                    TagNames = p.Source.Tags.Split(',').ToList()
+                    TagNames = p.Source.Tags
                 })
                 .ToList();
 
