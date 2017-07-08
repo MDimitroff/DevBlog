@@ -1,5 +1,6 @@
 ﻿using DevBlog.Models;
 using DevBlog.Services;
+using DevBlog.Services.Elasticsearch;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -17,7 +18,7 @@ namespace DevBlog.Controllers
             _elasticService = elasticService;
         }
 
-        public IActionResult Index()
+        public IActionResult Search()
         {
             var model = new List<PostModel>();
 
@@ -25,7 +26,7 @@ namespace DevBlog.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(string terms)
+        public IActionResult Search(string terms)
         {
             var model = _elasticService.Search(terms);
             ViewBag.Terms = terms;
@@ -53,15 +54,7 @@ namespace DevBlog.Controllers
         {
             if (!TryValidateModel(model))
             {
-                var viewModel = new PostModel
-                {
-                    Id = model.Id,
-                    Title = model.Title,
-                    Content = model.Content,
-                    Tags = model.Tags
-                };
-
-                return View(viewModel);
+                return View(model);
             }
 
             _postService.SaveOrUpdate(model);

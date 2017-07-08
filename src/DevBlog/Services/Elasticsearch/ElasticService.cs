@@ -1,10 +1,9 @@
 ﻿using DevBlog.Models;
-using DevBlog.Services.Elasticsearch;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DevBlog.Services
+namespace DevBlog.Services.Elasticsearch
 {
     public class ElasticService
     {
@@ -64,14 +63,6 @@ namespace DevBlog.Services
                     TagNames = p.Source.Tags
                 })
                 .ToList();
-
-            result.ForEach((post) => 
-            {
-                if (post.Content.Length > 400)
-                {
-                    post.Content = post.Content.Substring(0, 400) + "...";
-                }
-            });
 
             return result;
         }

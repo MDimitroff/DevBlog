@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using DevBlog.Entities;
+﻿using DevBlog.Entities;
 using DevBlog.Models;
 using DevBlog.Repositories;
+using DevBlog.Services.Elasticsearch;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DevBlog.Services
 {
@@ -51,14 +52,6 @@ namespace DevBlog.Services
                 })
                 .OrderByDescending(p => p.Id)
                 .ToList();
-
-            result.ForEach((post) => 
-            {
-                if(post.Content.Length > 400)
-                {
-                    post.Content = post.Content.Substring(0, 400) + "...";
-                }
-            });
 
             return result;
         }

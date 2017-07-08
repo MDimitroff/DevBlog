@@ -29,7 +29,7 @@ namespace DevBlog.Services.Elasticsearch
 
         private static IElasticClient GetClient()
         {
-            var urlString = new Uri("http://localhost:9200");
+            var urlString = new Uri("http://localhost:9200"); // ES default url
             var settings = new ConnectionSettings(urlString).DisableDirectStreaming();
 
             return new Nest.ElasticClient(settings);

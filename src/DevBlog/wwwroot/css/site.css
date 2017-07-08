@@ -85,6 +85,14 @@ img.header-image {
     margin-top: 50px;
 }
 
+.controled-text-length {
+    /*white-space: nowrap;*/
+    width: 100%;
+    height: 65px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .blog-post .icon {
     display: none;
 }

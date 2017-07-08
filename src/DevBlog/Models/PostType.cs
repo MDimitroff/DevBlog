@@ -9,7 +9,7 @@ namespace DevBlog.Models
         [Number(NumberType.Integer)] 
         public int Id { get; set; }
 
-        [Text]
+        [Text(Analyzer = "Bulgarian")]
         public string Title { get; set; }
 
         [Text(Analyzer = "Bulgarian")]
@@ -18,7 +18,7 @@ namespace DevBlog.Models
         [Keyword]
         public List<string> Tags { get; set; }
 
-        [Boolean(Store = false)]
+        [Boolean]
         public bool Deleted { get; set; }
     }
 }
