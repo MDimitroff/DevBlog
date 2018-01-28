@@ -31,8 +31,8 @@ namespace DevBlog
             // Add framework services.
             services.AddMvc();
             
-            var connection = @"Server=.\SQLEXPRESS;Database=DevBlog;Trusted_Connection=True;";
-            services.AddDbContext<BlogContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<BlogContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("BlogContext")));
 
             services.AddTransient<PostRepository>();
             services.AddTransient<PostTagRepository>();
