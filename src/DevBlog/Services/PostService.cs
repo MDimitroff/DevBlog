@@ -116,7 +116,7 @@ namespace DevBlog.Services
             if (post == null) return;
 
             post.Title = model.Title;
-            post.Content = model.Content;
+            post.Content = model.Content.Replace(Environment.NewLine, "<br />");
 
             _postRepository.SaveChanges();
 

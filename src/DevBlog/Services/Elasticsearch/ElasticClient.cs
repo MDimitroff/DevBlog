@@ -16,8 +16,6 @@ namespace DevBlog.Services.Elasticsearch
             // Creating the index
             _elastic.CreateIndex(_indexName, i => i
                 .Settings(s => s
-                    .Setting("number_of_shards", 1)
-                    .Setting("number_of_replicas", 0)
                     .Analysis(a => 
                         a.Analyzers(x => x.Language("Bulgarian", l => l.Language(Language.Bulgarian))))));
 
@@ -61,7 +59,6 @@ namespace DevBlog.Services.Elasticsearch
         {
             QueryContainer query = Query<PostType>.MultiMatch(mm => mm
                     .Query(terms)
-                    .Type(TextQueryType.MostFields)
                     .Fields(f => f
                         .Field(ff => ff.Title, boost: 3)
                         .Field(ff => ff.Tags, boost: 2)
